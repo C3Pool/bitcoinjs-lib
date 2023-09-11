@@ -1,3 +1,39 @@
+# 6.1.3
+__fixed__
+- validateSignaturesOfInput for taproot inputs returned false for valid signatures in specific cases. (#1934)
+
+# 6.1.2
+__fixed__
+- validateSignaturesOfInput for taproot inputs returned true for invalid signatures in specific cases. (#1932)
+
+# 6.1.1
+__added__
+- add example using BIP86 vector to verify the sending to and from a BIP86 generated taproot address
+
+__fixed__
+- support for 65 byte taproot signature
+- prevent the creation of unspendable scripts in bitcoinjs-lib by implementing checks for resource limitations
+- use `Buffer.from()` instead of `Buffer.of()`
+
+__changed__
+- performance: precompute the taproot hashes
+- performance: switch from `create-hash` and `ripemd160` to noble-hashes
+
+__removed__
+- types: removed unused methods `privateAdd` and `privateNegate` from `TinySecp256k1Interface`
+
+# 6.1.0
+__added__
+- taproot support for payments (p2tr) and PSBT. See taproot.spec.ts integration test for examples. (#1742)
+
+# 6.0.2
+__fixed__
+- p2sh payment now uses empty Buffer for redeem.output when redeemScript is OP_FALSE (#1802)
+- Fix ripemd160 hashing fallback issue (#1812)
+
+# 6.0.1
+- No changes to public API
+
 # 6.0.0
 __removed__
 - bip32: Removed the re-export. Please add as dependency to your app instead.

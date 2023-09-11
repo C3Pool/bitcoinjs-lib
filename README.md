@@ -9,7 +9,6 @@ Released under the terms of the [MIT LICENSE](LICENSE).
 If you are thinking of using the *master* branch of this library in production, **stop**.
 Master is not stable; it is our development branch, and [only tagged releases may be classified as stable](https://github.com/bitcoinjs/bitcoinjs-lib/tags).
 
-
 ## Can I trust this code?
 > Don't trust. Verify.
 
@@ -23,11 +22,23 @@ Mistakes and bugs happen, but with your help in resolving and reporting [issues]
 - Standardized, using [prettier](https://github.com/prettier/prettier) and Node `Buffer`'s throughout, and
 - Friendly, with a strong and helpful community, ready to answer questions.
 
-
 ## Documentation
 Presently,  we do not have any formal documentation other than our [examples](#examples), please [ask for help](https://github.com/bitcoinjs/bitcoinjs-lib/issues/new) if our examples aren't enough to guide you.
 
 You can find a [Web UI](https://bitcoincore.tech/apps/bitcoinjs-ui/index.html) that covers most of the `psbt.ts`, `transaction.ts` and `p2*.ts` APIs [here](https://bitcoincore.tech/apps/bitcoinjs-ui/index.html).
+
+## How can I contact the developers outside of Github?
+**Most of the time, this is not appropriate. Creating issues and pull requests in the open will help others with similar issues, so please try to use public issues and pull requests for communication.**
+
+That said, sometimes developers might be open to taking things off the record (ie. You want to share code that you don't want public to get help with it). In that case, please negotiate on the public issues as to where you will contact.
+
+We have created public rooms on IRC (`#bitcoinjs` on `libera.chat`) and Matrix (`#bitcoinjs-dev:matrix.org`). These two channels have been joined together in a Matrix "Space" which has the Matrix room AND an IRC bridge room that can converse with the IRC room. The "Space" is `#bitcoinjs-space:matrix.org`.
+
+Matrix and IRC both have functions for direct messaging, but IRC is not end to end encrypted, so Matrix is recommended for most communication. The official Matrix client maintained by the Matrix core team is called "Element" and can be downloaded here: https://element.io/download (Account creation is free on the matrix.org server, which is the default setting for Element.)
+
+We used to have a Slack. It is dead. If you find it, no one will answer you most likely.
+
+No we will not make a Discord.
 
 ## Installation
 ``` bash
@@ -65,9 +76,9 @@ It can do this through undermining your random number generation, accidentally p
 Running tests in your target environment is important and a recommended step to verify continuously.
 
 Finally, **adhere to best practice**.
-We are not an authorative source of best practice, but, at the very least:
+We are not an authoritative source of best practice, but, at the very least:
 
-* [Don't re-use addresses](https://en.bitcoin.it/wiki/Address_reuse).
+* [Don't reuse addresses](https://en.bitcoin.it/wiki/Address_reuse).
 * Don't share BIP32 extended public keys ('xpubs'). [They are a liability](https://bitcoin.stackexchange.com/questions/56916/derivation-of-parent-private-key-from-non-hardened-child), and it only takes 1 misplaced private key (or a buggy implementation!) and you are vulnerable to **catastrophic fund loss**.
 * [Don't use `Math.random`](https://security.stackexchange.com/questions/181580/why-is-math-random-not-designed-to-be-cryptographically-secure) - in any way - don't.
 * Enforce that users always verify (manually) a freshly-decoded human-readable version of their intended transaction before broadcast.
@@ -76,8 +87,20 @@ We are not an authorative source of best practice, but, at the very least:
 
 
 ### Browser
-The recommended method of using `bitcoinjs-lib` in your browser is through [Browserify](https://github.com/substack/node-browserify).
-If you're familiar with how to use browserify, ignore this and carry on, otherwise, it is recommended to read the tutorial at https://browserify.org/.
+The recommended method of using `bitcoinjs-lib` in your browser is through [browserify](http://browserify.org/).
+
+If you'd like to use a different (more modern) build tool than `browserify`, you can compile just this library and its dependencies into a single JavaScript file:
+
+```sh
+$ npm install bitcoinjs-lib browserify
+$ npx browserify --standalone bitcoin - -o bitcoinjs-lib.js <<<"module.exports = require('bitcoinjs-lib');"
+```
+
+Which you can then import as an ESM module:
+
+```javascript
+<script type="module">import "/scripts/bitcoinjs-lib.js"</script>
+````
 
 **NOTE**: We use Node Maintenance LTS features, if you need strict ES5, use [`--transform babelify`](https://github.com/babel/babelify) in conjunction with your `browserify` step (using an [`es2015`](https://babeljs.io/docs/plugins/preset-es2015/) preset).
 
@@ -91,8 +114,8 @@ The below examples are implemented as integration tests, they should be very eas
 Otherwise, pull requests are appreciated.
 Some examples interact (via HTTPS) with a 3rd Party Blockchain Provider (3PBP).
 
-- [Taproot Key Spend](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/taproot.md)
 
+- [Taproot Key Spend](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/taproot.spec.ts)
 - [Generate a random address](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/addresses.spec.ts)
 - [Import an address via WIF](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/addresses.spec.ts)
 - [Generate a 2-of-3 P2SH multisig address](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/addresses.spec.ts)
